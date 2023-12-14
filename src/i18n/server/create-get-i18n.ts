@@ -1,20 +1,19 @@
 import { createTranslator } from '../common/get-trans'
+import { Locale } from './create-18n-server'
 import { getLocaleCache } from './get-locale-cache'
 
-export function createGetI18n(locales: any, config?: any) {
+export function createGetI18n(locales: Locale, config?: any) {
 	return async function getI18n() {
 		const locale = getLocaleCache()
-		if (locale) {
+	
 			return createTranslator(
 				{
-					localeContent: flattenLocale((await locales[locale]()).default),
+					localeContent: locale? flattenLocale((await locales[locale]()).default) : {},
 					fallbackLocale: config?.fallbackLocale ? flattenLocale(config.fallbackLocale) : undefined,
 					locale,
 				},
 				undefined
 			)
-		}
-		return null
 	}
 }
 
