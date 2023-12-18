@@ -12,7 +12,7 @@ function changeServerLocale(locale: string) {
 	setStaticParamsLocale(locale)
 }
 
-export function createI18nServer(locales: Locale, config?: any) {
+export function createI18nServer(locales: Locale, config?: { defaultLocale: string } & Record<string, any>) {
 	if (locales && Object.keys(locales).length === 0) {
 		throw new Error('Please add at least one locale')
 	}
