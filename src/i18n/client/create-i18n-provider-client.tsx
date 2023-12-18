@@ -14,11 +14,12 @@ export const localesCache = new Map<string, Record<string, unknown>>()
 export function createI18nProviderClient(I18nClientContext: Context<any>, locales: any, fallbackLocale?: Record<string, unknown>) {
 	function I18nProvider({ locale, children }: I18nProviderProps) {
 		let clientLocale: any = localesCache.get(locale)
-
+		console.log({ locale })
 		if (!clientLocale) {
 			const newLocale = locales[locale as keyof typeof locales]
 			newLocale()?.then((module: any) => {
 				clientLocale = module.default
+				console.log({ module: module.default })
 				localesCache.set(locale, module.default)
 			})
 		}
@@ -31,6 +32,7 @@ export function createI18nProviderClient(I18nClientContext: Context<any>, locale
 			}),
 			[clientLocale, locale]
 		)
+		console.log({ value, clientLocale })
 
 		return <I18nClientContext.Provider value={value}>{children}</I18nClientContext.Provider>
 	}
