@@ -1,4 +1,3 @@
-import { cookies, headers } from 'next/headers'
 import { cache } from 'react'
 
 const getLocale = cache<() => { current: string | undefined }>(() => ({ current: undefined }))
