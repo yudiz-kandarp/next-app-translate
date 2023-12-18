@@ -25,7 +25,7 @@ export function createI18nProviderClient(I18nClientContext: Context<any>, locale
 
 		const value = useMemo(
 			() => ({
-				localeContent: flattenLocale(clientLocale),
+				localeContent: clientLocale ? flattenLocale(clientLocale) : {},
 				fallbackLocale: fallbackLocale ? flattenLocale(fallbackLocale) : undefined,
 				locale: locale as string,
 			}),
