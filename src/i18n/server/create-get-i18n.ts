@@ -4,16 +4,16 @@ import { getLocaleCache } from './get-locale-cache'
 
 export function createGetI18n(locales: Locale, config?: any) {
 	return async function getI18n() {
-		const locale = getLocaleCache()
-	
-			return createTranslator(
-				{
-					localeContent: locale? flattenLocale((await locales[locale]()).default) : {},
-					fallbackLocale: config?.fallbackLocale ? flattenLocale(config.fallbackLocale) : undefined,
-					locale,
-				},
-				undefined
-			)
+		const locale = getLocaleCache() || config?.defaultLocale
+
+		return createTranslator(
+			{
+				localeContent: locale ? flattenLocale((await locales[locale]()).default) : {},
+				fallbackLocale: config?.fallbackLocale ? flattenLocale(config.fallbackLocale) : undefined,
+				locale,
+			},
+			undefined
+		)
 	}
 }
 

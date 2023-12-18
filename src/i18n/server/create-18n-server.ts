@@ -8,6 +8,10 @@ export type Locale = {
 	[key: string]: () => Promise<any>
 }
 
+function changeServerLocale(locale: string) {
+	setStaticParamsLocale(locale)
+}
+
 export function createI18nServer(locales: Locale, config?: any) {
 	if (locales && Object.keys(locales).length === 0) {
 		throw new Error('Please add at least one locale')
@@ -16,6 +20,6 @@ export function createI18nServer(locales: Locale, config?: any) {
 
 	return {
 		getI18n,
-		setStaticParamsLocale,
+		changeServerLocale,
 	}
 }

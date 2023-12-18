@@ -13,8 +13,10 @@ const getStaticParamsLocale = () => {
 }
 
 export const setStaticParamsLocale = (value: string) => {
-	localeLang.current = value
-	getLocale().current = value
+	if (!getLocale().current || value !== getLocale().current) {
+		localeLang.current = value
+		getLocale().current = value
+	}
 }
 
 export const getLocaleCache = () => {
