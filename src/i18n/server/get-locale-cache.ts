@@ -1,10 +1,19 @@
 import 'next/headers'
 import { cache } from 'react'
 
+const localeLang: any = {
+	current: '',
+	v: '',
+}
+
 const getLocale = cache<() => { current: string | undefined }>(() => ({ current: undefined }))
-const getStaticParamsLocale = () => getLocale().current
+const getStaticParamsLocale = () => {
+	localeLang.v = new Date()
+	return localeLang.current || getLocale().current
+}
 
 export const setStaticParamsLocale = (value: string) => {
+	localeLang.current = value
 	getLocale().current = value
 }
 
