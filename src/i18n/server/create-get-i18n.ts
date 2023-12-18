@@ -4,7 +4,7 @@ import { getLocaleCache } from './get-locale-cache'
 
 export function createGetI18n(locales: Locale, config?: any) {
 	return async function getI18n() {
-		const locale = getLocaleCache() || config?.defaultLocale
+		const locale = getLocaleCache(config?.defaultLocale)
 
 		return createTranslator(
 			{

@@ -19,10 +19,10 @@ export const setStaticParamsLocale = (value: string) => {
 	}
 }
 
-export const getLocaleCache = () => {
+export const getLocaleCache = (defaultLocale: string | undefined) => {
 	let locale: string | undefined | null
 
-	locale = getStaticParamsLocale()
+	locale = getStaticParamsLocale() || defaultLocale
 
 	if (!locale) {
 		throw new Error('Could not find locale while rendering page, make sure you called `setStaticParamsLocale` at the top of your pages')
