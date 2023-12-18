@@ -4,6 +4,10 @@
 	"description": "",
 	"main": "./dist/cjs/index.js",
 	"module": "./dist/esm/index.js",
+	"exports": {
+		"./client": "./dist/esm/client.js",
+		"./server-component": "./dist/esm/server.js"
+	},
 	"types": "./dist/esm/index.d.ts",
 	"scripts": {
 		"build": "npm run build:esm && npm run build:cjs",
