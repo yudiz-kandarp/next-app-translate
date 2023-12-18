@@ -1,5 +1,5 @@
 import type { Context, ReactNode } from 'react'
-import React, { Suspense, use, useMemo } from 'react'
+import React, { Suspense, useMemo } from 'react'
 
 type I18nProviderProps = Omit<I18nProviderWrapperProps, 'fallback'>
 
@@ -17,9 +17,10 @@ export function createI18nProviderClient(I18nClientContext: Context<any>, locale
 
 		if (!clientLocale) {
 			const newLocale = locales[locale as keyof typeof locales]
-
-			clientLocale = (use(newLocale()) as any).default
-			localesCache.set(locale, clientLocale)
+			newLocale()?.then((module: any) => {
+				clientLocale = module.default
+				localesCache.set(locale, module.default)
+			})
 		}
 
 		const value = useMemo(

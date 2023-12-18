@@ -1,13 +1,14 @@
-import { cache } from 'react'
-
-const getLocale = cache<() => { current: string | undefined }>(() => ({ current: undefined }))
-const getStaticParamsLocale = () => getLocale().current
+const getLocale: { current: undefined | string } = {
+	current: undefined,
+}
+// const getLocale: () => { current: undefined | string } = () => ({ current: undefined })
+const getStaticParamsLocale = () => getLocale.current
 
 export const setStaticParamsLocale = (value: string) => {
-	getLocale().current = value
+	getLocale.current = value
 }
 
-export const getLocaleCache = cache(() => {
+export const getLocaleCache = () => {
 	let locale: string | undefined | null
 
 	locale = getStaticParamsLocale()
@@ -17,4 +18,4 @@ export const getLocaleCache = cache(() => {
 	}
 
 	return locale
-})
+}

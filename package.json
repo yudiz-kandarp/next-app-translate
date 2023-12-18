@@ -19,9 +19,8 @@
 	"devDependencies": {
 		"@types/node": "^20.10.4",
 		"@types/react": "^18.0.12",
-		"next": "^14.0.4",
 		"react": "^18.1.0",
-		"react-dom": "^18.1.0",
+		"tslib": "^2.6.2",
 		"typescript": "^4.7.3"
 	},
 	"dependencies": {
@@ -30,7 +29,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/sonyzach/usfm-validator.git"
+		"url": "https://github.com/yudiz-kandarp/next-app-translate.git"
 	},
 	"files": [
 		"dist",
