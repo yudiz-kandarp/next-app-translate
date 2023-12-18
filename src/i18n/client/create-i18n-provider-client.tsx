@@ -1,5 +1,5 @@
 import type { Context, ReactNode } from 'react'
-import React, { Suspense, useMemo } from 'react'
+import React, { Suspense, use, useMemo } from 'react'
 
 type I18nProviderProps = Omit<I18nProviderWrapperProps, 'fallback'>
 
@@ -14,25 +14,22 @@ export const localesCache = new Map<string, Record<string, unknown>>()
 export function createI18nProviderClient(I18nClientContext: Context<any>, locales: any, fallbackLocale?: Record<string, unknown>) {
 	function I18nProvider({ locale, children }: I18nProviderProps) {
 		let clientLocale: any = localesCache.get(locale)
-		console.log({ locale })
+
 		if (!clientLocale) {
 			const newLocale = locales[locale as keyof typeof locales]
-			newLocale()?.then((module: any) => {
-				clientLocale = module.default
-				console.log({ module: module.default })
-				localesCache.set(locale, module.default)
-			})
+
+			clientLocale = (use(newLocale()) as any).default
+			localesCache.set(locale, clientLocale)
 		}
 
 		const value = useMemo(
 			() => ({
-				localeContent: clientLocale ? flattenLocale(clientLocale) : {},
+				localeContent: flattenLocale(clientLocale),
 				fallbackLocale: fallbackLocale ? flattenLocale(fallbackLocale) : undefined,
 				locale: locale as string,
 			}),
 			[clientLocale, locale]
 		)
-		console.log({ value, clientLocale })
 
 		return <I18nClientContext.Provider value={value}>{children}</I18nClientContext.Provider>
 	}
